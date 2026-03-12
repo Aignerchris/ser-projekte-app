@@ -1,1 +1,517 @@
-<!doctype html> <html lang="de"> <head> <meta charset="utf-8" /> <meta name="viewport" content="width=device-width, initial-scale=1" /> <title>Hertwich SER_Einsatzprotokolle</title> <meta name="description" content="Einsatzprotokolle: Checkliste, Pflichtfelder, Signatur, Export/Import." /> <meta name="apple-mobile-web-app-capable" content="yes"> <meta name="apple-mobile-web-app-status-bar-style" content="default"> <meta name="apple-mobile-web-app-title" content="SER Projekte"> <meta name="mobile-web-app-capable" content="yes"> <meta name="theme-color" content="#858dda"> <meta name="format-detection" content="telephone=no"> <link rel="manifest" href="manifest.json"> <link rel="apple-touch-icon" sizes="120x120" href="icon-120.png"> <link rel="apple-touch-icon" sizes="152x152" href="icon-152.png"> <link rel="apple-touch-icon" sizes="167x167" href="icon-167.png"> <link rel="apple-touch-icon" sizes="180x180" href="icon-180.png"> <style> :root{--bg:#858dda;--card:rgba(255,255,255,.06);--text:rgba(255,255,255,.92);--muted:rgba(255,255,255,.72);--border:rgba(255,255,255,.14);--danger:#ff4d6d;--ok:#2ee59d;--warn:#ffcc66;--radius:16px;--shadow:0 18px 55px rgba(7,7,7,.35);--max:1240px} *{box-sizing:border-box}html,body{margin:0;padding:0;width:100%;overflow-x:hidden;-webkit-text-size-adjust:100%} body{font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(900px 520px at 15% 10%, rgba(124,92,255,.22), transparent 60%),radial-gradient(800px 460px at 90% 15%, rgba(36,210,255,.18), transparent 55%),linear-gradient(180deg, #070a14 0%, var(--bg) 100%);color:var(--text);line-height:1.45} .wrap{max-width:var(--max);margin:0 auto;padding:18px 18px 48px} header{position:sticky;top:0;z-index:20;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);background:rgba(78,110,218,.55);border-bottom:1px solid var(--border)} .bar{max-width:var(--max);margin:0 auto;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px} .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px;min-width:0} .logo{width:85px;height:27px;border-radius:10px;background-image:url("Bilder/HE-Logo.png");background-repeat:no-repeat;background-position:center;background-size:contain;flex:0 0 auto} .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 12px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,.05);color:var(--text);cursor:pointer;transition:150ms ease;user-select:none;font:inherit;-webkit-appearance:none;appearance:none} .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.08)}.btn.primary{border-color:rgba(124,92,255,.45);background:linear-gradient(135deg, rgba(124,92,255,.95), rgba(36,210,255,.70))}.btn.danger{border-color:rgba(255,77,109,.45);background:rgba(255,77,109,.12)}.btn.ghost{background:transparent} .pill{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--muted);font-size:13px;white-space:nowrap}.pill.ok{border-color:rgba(46,229,157,.35);background:rgba(46,229,156,.082);color:rgba(255,255,255,.88)}.pill.warn{border-color:rgba(255,204,102,.34);background:rgba(255,204,102,.10);color:rgba(255,255,255,.88)} .grid{display:grid;grid-template-columns:380px 1fr;gap:16px;align-items:start;margin-top:16px}.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden} .card-head{padding:14px 14px 10px;display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid rgba(255,255,255,.08)}.card-head h2{margin:0;font-size:16px;min-width:0}.card-body{padding:14px} .row{display:flex;gap:10px;align-items:center;min-width:0}.col{display:grid;gap:8px;min-width:0}label{font-size:13px;color:var(--muted)} input:not([type="checkbox"]),textarea{ width:100%; padding:10px 11px; border-radius:14px; border:1px solid var(--border); background:rgba(0,0,0,.18); color:var(--text); outline:none; font:inherit; -webkit-appearance:none; appearance:none } textarea{min-height:90px;resize:vertical} input:not([type="checkbox"]):focus,textarea:focus{ border-color:rgba(124,92,255,.55); box-shadow:0 0 0 4px rgba(124,92,255,.18) } .req{display:inline-flex;align-items:center;gap:6px;margin-left:6px;font-size:12px;color:rgba(255,255,255,.82);padding:2px 8px;border-radius:999px;border:1px solid rgba(255,204,102,.35);background:rgba(255,204,102,.10)} .err{border-color:rgba(255,77,109,.55)!important;box-shadow:0 0 0 4px rgba(255,77,109,.16)!important}.muted{color:var(--muted);font-size:13px}.list{display:grid;gap:10px} .item{display:grid;gap:8px;padding:12px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(255,255,255,.04);min-width:0}.item-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px} .tag{font-size:12px;color:var(--muted);border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);padding:4px 8px;border-radius:999px;white-space:nowrap}.smallbtn{padding:7px 9px;border-radius:12px;font-size:13px} .split{display:grid;grid-template-columns:1fr 1fr;gap:12px}.kpi{display:grid;gap:4px;padding:10px 12px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(255,255,255,.03)}.kpi b{font-size:16px}.kpi span{font-size:12px;color:var(--muted)} .empty{padding:16px;border:1px dashed rgba(255,255,255,.18);border-radius:16px;color:var(--muted)}.footer-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-top:12px}.hide{display:none} .check{ width:18px; height:18px; margin-top:2px; accent-color:#8b7cff; flex:0 0 auto; -webkit-appearance:auto; appearance:auto; padding:0; background:transparent; border:none; border-radius:4px; cursor:pointer } .sig-wrap{border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.18);border-radius:16px;overflow:hidden} canvas{width:100%;max-width:100%;height:160px;display:block;touch-action:none}.sig-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px;border-top:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.03);flex-wrap:wrap} .modal{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.45);padding:20px}.modal-card{max-width:520px;margin:8vh auto 0;background:#1a214f;color:white;border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:18px;box-shadow:0 18px 55px rgba(7,7,7,.35)} .modal-title{font-size:18px;font-weight:800;margin-bottom:10px}.modal-text{line-height:1.5;color:rgba(255,255,255,.9)} @media (max-width:980px){.grid{grid-template-columns:1fr}.split{grid-template-columns:1fr}}@media (max-width:700px){.wrap{padding:14px 14px 38px}.bar{flex-direction:column;align-items:stretch}.brand{justify-content:center}.card-head{flex-direction:column;align-items:stretch}.row{flex-wrap:wrap}.footer-actions{flex-direction:column;align-items:stretch}} </style> </head> <body> <header><div class="bar"><div class="brand"><div class="logo" aria-hidden="true"></div><div><div id="appTitle">SER_Projekte</div><div class="muted" id="appSubtitle">Checklisten</div></div></div><div class="row" style="flex-wrap:wrap; justify-content:flex-end;"><span class="pill" id="statusPill">Status: —</span><button class="btn smallbtn" id="langDeBtn" type="button">DE</button><button class="btn smallbtn" id="langEnBtn" type="button">EN</button><button class="btn" id="installBtn" type="button">App installieren</button><button class="btn" id="exportBtn" type="button">Export</button><label class="btn ghost" for="importFile" id="importLabel" style="cursor:pointer">Import</label><input id="importFile" type="file" accept="application/json" class="hide" /></div></div></header> <main class="wrap"><div class="grid"> <section class="card"> <div class="card-head"><h2 id="runsTitle">Einsätze</h2><button class="btn primary" id="newBtn" type="button">+ Neuer Einsatz</button></div> <div class="card-body col"> <input id="searchInput" placeholder="Suchen (Kunde, Techniker, Datum) …" /> <div class="split"><div class="kpi"><b id="kpiCount">0</b><span id="kpiRunsLabel">Einsätze</span></div><div class="kpi"><b id="kpiOpen">0</b><span id="kpiOpenLabel">unvollständig</span></div></div> <div id="library" class="list"></div> <div class="muted" id="tipDuplicate">Tipp: “Duplizieren” kopiert einen Einsatz als Basis für den nächsten.</div> </div> </section> <section class="card"> <div class="card-head"><h2 id="activeTitle">Kein Einsatz ausgewählt</h2><div class="row"><button class="btn" id="duplicateBtn" type="button" disabled>Duplizieren</button><button class="btn danger" id="deleteBtn" type="button" disabled>Löschen</button></div></div> <div class="card-body col"> <div id="emptyState" class="empty">Links einen Einsatz auswählen oder “Neuer Einsatz”.</div> <div id="editor" class="col hide"> <div class="split"><div class="col"><label for="customerInput" id="customerLabel">Kunde <span class="req">Pflicht</span></label><input id="customerInput" placeholder="z. B. 499.SER.000" /></div><div class="col"><label for="techInput" id="techLabel">Techniker <span class="req">Pflicht</span></label><input id="techInput" placeholder="z. B. Christian Aigner" /></div></div> <div class="split"><div class="col"><label for="dateInput" id="dateLabel">Datum <span class="req">Pflicht</span></label><input id="dateInput" type="date" /></div><div class="col"><label for="siteInput" id="siteLabel">Einsatzort / Objekt</label><input id="siteInput" placeholder="Adresse / Standort / Anlage" /></div></div> <div class="split"><div class="col"><label for="refInput" id="refLabel">Auftrag / Ticket</label><input id="refInput" placeholder="z. B. Auftragsnummer" /></div><div class="col"><label for="summaryInput" id="summaryLabel">Kurzbeschreibung</label><input id="summaryInput" placeholder="z. B. Durchsicht, Service, Inbetriebnahme" /></div></div> <div class="col"><label for="notesInput" id="notesLabel">Notizen</label><textarea id="notesInput" placeholder="z. B. Messwerte, Besonderheiten, Ersatzteile …"></textarea></div> <hr style="border:none; border-top:1px solid rgba(255,250,250,.1); width:100%; margin:6px 0;"> <div class="row" style="justify-content:space-between; flex-wrap:wrap;"><div class="pill" id="progressPill">0% erledigt</div><div class="row" style="flex-wrap:wrap;"><button class="btn" id="resetChecksBtn" type="button">Checkpunkte zurücksetzen</button><button class="btn" id="clearSigBtn" type="button">Unterschrift löschen</button></div></div> <div class="split"><div class="col"><label for="newItemText" id="newItemTextLabel">Neuer Checkpunkt</label><input id="newItemText" placeholder="z. B. Filter prüfen" /></div><div class="col"><label for="newItemHint" id="newItemHintLabel">Hinweis (optional)</label><input id="newItemHint" placeholder="z. B. Ersatzfilter" /></div></div> <div class="row" style="justify-content:flex-start; flex-wrap:wrap;"><button class="btn primary" id="addItemBtn" type="button">+ Punkt hinzufügen</button></div> <div id="items" class="list"></div> <hr style="border:none; border-top:1px solid rgba(255,255,255,.10); width:100%; margin:6px 0;"> <div class="col"><label id="signatureLabel">Unterschrift <span class="req">Pflicht</span></label><div class="sig-wrap" id="sigWrap"><canvas id="sigCanvas" width="1200" height="320"></canvas><div class="sig-bar"><div class="muted" id="sigHint">Mit Maus oder Finger unterschreiben.</div><div class="row"><span class="pill" id="sigPill">Signatur: fehlt</span></div></div></div></div> <div class="footer-actions"><div class="muted" id="savedHint">Änderungen werden automatisch gespeichert.</div><div class="row" style="flex-wrap:wrap;"><button class="btn" id="pdfBtn" type="button">PDF speichern</button><button class="btn" id="printBtn" type="button">Drucken / PDF</button></div></div> </div> </div> </section> </div></main> <div id="installHelp" class="modal hide"><div class="modal-card"><div class="modal-title" id="installHelpTitle">App installieren</div><div class="modal-text" id="installHelpText">Auf dem iPhone in Safari öffnen, dann Teilen und „Zum Home-Bildschirm“ wählen.</div><div style="display:flex; gap:10px; justify-content:flex-end; margin-top:16px;"><button class="btn" id="closeInstallHelpBtn" type="button">Schließen</button></div></div></div> <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script> <script> const STORAGE_KEY="service_runs_v2",LANG_KEY="service_runs_lang";let currentLang=localStorage.getItem(LANG_KEY)||"de",deferredInstallPrompt=null; const i18n={de:{appTitle:"SER_Projekte",appSubtitle:"Checklisten",statusEmpty:"Status: —",statusComplete:"Status: vollständig",statusIncomplete:"Status: unvollständig",runs:"Einsätze",newRun:"+ Neuer Einsatz",duplicate:"Duplizieren",delete:"Löschen",export:"Export",import:"Import",print:"Drucken / PDF",pdfSave:"PDF speichern",install:"App installieren",installTitle:"App installieren",installHelp:"Auf dem iPhone in Safari öffnen, dann Teilen und „Zum Home-Bildschirm“ wählen.",installClose:"Schließen",offlineReady:"Offline-Modus aktiv",noRunSelected:"Kein Einsatz ausgewählt",emptyEditor:"Links einen Einsatz auswählen oder “Neuer Einsatz”.",searchPlaceholder:"Suchen (Kunde, Techniker, Datum) …",kpiRuns:"Einsätze",kpiIncomplete:"unvollständig",tipDuplicate:"Tipp: “Duplizieren” kopiert einen Einsatz als Basis für den nächsten.",customer:"Kunde",technician:"Techniker",date:"Datum",site:"Einsatzort / Objekt",reference:"Auftrag / Ticket",summary:"Kurzbeschreibung",notes:"Notizen",required:"Pflicht",customerPlaceholder:"z. B. 499.SER.000",technicianPlaceholder:"z. B. Christian Aigner",sitePlaceholder:"Adresse / Standort / Anlage",referencePlaceholder:"z. B. Auftragsnummer",summaryPlaceholder:"z. B. Durchsicht, Service, Inbetriebnahme",notesPlaceholder:"z. B. Messwerte, Besonderheiten, Ersatzteile …",progressDone:"erledigt",resetChecks:"Checkpunkte zurücksetzen",clearSignature:"Unterschrift löschen",newCheckpoint:"Neuer Checkpunkt",newCheckpointPlaceholder:"z. B. Filter prüfen",checkpointHint:"Hinweis (optional)",checkpointHintPlaceholder:"z. B. Ersatzfilter",addCheckpoint:"+ Punkt hinzufügen",noCheckpoints:"Noch keine Checkpunkte. Füge oben einen Punkt hinzu.",signature:"Unterschrift",signatureMissing:"Signatur: fehlt",signatureOk:"Signatur: ok",signatureHint:"Mit Maus oder Finger unterschreiben.",signatureSaved:"Unterschrift gespeichert.",autosave:"Änderungen werden automatisch gespeichert.",saved:"Gespeichert ✓",noResults:"Keine Treffer. Suche ändern oder neuen Einsatz anlegen.",customerMissing:"Kunde fehlt",dateMissing:"Datum fehlt",technicianMissing:"Techniker fehlt",complete:"vollständig",incomplete:"unvollständig",deleteRunConfirm:'Einsatz "{label}" wirklich löschen?',deleteItemConfirm:"Diesen Checkpunkt wirklich löschen?",resetChecksConfirm:"Alle Checkpunkte zurücksetzen (Haken & Punkt-Notizen)?",clearSigConfirm:"Unterschrift wirklich löschen?",importSuccess:"Import erfolgreich.",importFailed:"Import fehlgeschlagen: ",invalidFormat:"Ungültiges Format (runs fehlt).",exportFailedIOS:"Export konnte auf diesem Gerät nicht direkt geöffnet werden.",printWindowFailed:"Druckansicht konnte nicht geöffnet werden.",incompleteProtocol:"Dieses Protokoll ist noch unvollständig (Kunde/Techniker/Datum/Unterschrift).",runDefaultTitle:"Einsatz",protocolTitle:"Einsatzprotokoll",printCreatedAt:"Erstellt/gedruckt am",checkpointsLabel:"Checkpunkte",noCheckpointsPrint:"Keine Checkpunkte",noteLabel:"Notiz",noValue:"-",signatureRequired:"Unterschrift (Pflicht)",up:"Nach oben",down:"Nach unten",deletePoint:"Punkt löschen",itemNotePlaceholder:"Notiz zu diesem Punkt (optional)"},en:{appTitle:"SER_Projects",appSubtitle:"Checklists",statusEmpty:"Status: —",statusComplete:"Status: complete",statusIncomplete:"Status: incomplete",runs:"Jobs",newRun:"+ New job",duplicate:"Duplicate",delete:"Delete",export:"Export",import:"Import",print:"Print / PDF",pdfSave:"Save PDF",install:"Install app",installTitle:"Install app",installHelp:"Open in Safari on iPhone, then tap Share and choose “Add to Home Screen”.",installClose:"Close",offlineReady:"Offline mode active",noRunSelected:"No job selected",emptyEditor:"Select a job on the left or click “New job”.",searchPlaceholder:"Search (customer, technician, date) …",kpiRuns:"Jobs",kpiIncomplete:"incomplete",tipDuplicate:"Tip: “Duplicate” copies a job as a base for the next one.",customer:"Customer",technician:"Technician",date:"Date",site:"Site / Object",reference:"Order / Ticket",summary:"Short description",notes:"Notes",required:"Required",customerPlaceholder:"e.g. 499.SER.000",technicianPlaceholder:"e.g. Christian Aigner",sitePlaceholder:"Address / site / system",referencePlaceholder:"e.g. order number",summaryPlaceholder:"e.g. inspection, service, commissioning",notesPlaceholder:"e.g. measurements, special notes, spare parts …",progressDone:"done",resetChecks:"Reset checkpoints",clearSignature:"Clear signature",newCheckpoint:"New checkpoint",newCheckpointPlaceholder:"e.g. Check filter",checkpointHint:"Hint (optional)",checkpointHintPlaceholder:"e.g. spare filter",addCheckpoint:"+ Add checkpoint",noCheckpoints:"No checkpoints yet. Add one above.",signature:"Signature",signatureMissing:"Signature: missing",signatureOk:"Signature: ok",signatureHint:"Sign with mouse or finger.",signatureSaved:"Signature saved.",autosave:"Changes are saved automatically.",saved:"Saved ✓",noResults:"No results. Change the search or create a new job.",customerMissing:"Customer missing",dateMissing:"Date missing",technicianMissing:"Technician missing",complete:"complete",incomplete:"incomplete",deleteRunConfirm:'Delete job "{label}"?',deleteItemConfirm:"Delete this checkpoint?",resetChecksConfirm:"Reset all checkpoints (checks and notes)?",clearSigConfirm:"Delete signature?",importSuccess:"Import successful.",importFailed:"Import failed: ",invalidFormat:"Invalid format (runs missing).",exportFailedIOS:"Export could not be opened directly on this device.",printWindowFailed:"Print preview could not be opened.",incompleteProtocol:"This protocol is still incomplete (customer/technician/date/signature).",runDefaultTitle:"Job",protocolTitle:"Service Report",printCreatedAt:"Created/printed on",checkpointsLabel:"Checkpoints",noCheckpointsPrint:"No checkpoints",noteLabel:"Note",noValue:"-",signatureRequired:"Signature (required)",up:"Move up",down:"Move down",deletePoint:"Delete checkpoint",itemNotePlaceholder:"Note for this checkpoint (optional)"}}; const t=k=>i18n[currentLang]?.[k]??k,uid=()=> "r_"+Math.random().toString(16).slice(2)+Date.now().toString(16),nowISO=()=>new Date().toISOString(); let state=(()=>{try{const raw=localStorage.getItem(STORAGE_KEY);if(!raw)return{runs:[],activeId:null};const p=JSON.parse(raw);if(!p||!Array.isArray(p.runs))return{runs:[],activeId:null};return{runs:p.runs,activeId:p.activeId??null}}catch{return{runs:[],activeId:null}}})(); const $=id=>document.getElementById(id),libraryEl=$("library"),searchInput=$("searchInput"),kpiCount=$("kpiCount"),kpiOpen=$("kpiOpen"),emptyState=$("emptyState"),editorEl=$("editor"),activeTitleEl=$("activeTitle"),statusPill=$("statusPill"),customerInput=$("customerInput"),techInput=$("techInput"),dateInput=$("dateInput"),siteInput=$("siteInput"),refInput=$("refInput"),summaryInput=$("summaryInput"),notesInput=$("notesInput"),newItemText=$("newItemText"),newItemHint=$("newItemHint"),itemsEl=$("items"),progressPill=$("progressPill"),newBtn=$("newBtn"),duplicateBtn=$("duplicateBtn"),deleteBtn=$("deleteBtn"),addItemBtn=$("addItemBtn"),resetChecksBtn=$("resetChecksBtn"),printBtn=$("printBtn"),pdfBtn=$("pdfBtn"),exportBtn=$("exportBtn"),importFile=$("importFile"),langDeBtn=$("langDeBtn"),langEnBtn=$("langEnBtn"),installBtn=$("installBtn"),installHelp=$("installHelp"),closeInstallHelpBtn=$("closeInstallHelpBtn"),sigCanvas=$("sigCanvas"),sigWrap=$("sigWrap"),sigPill=$("sigPill"),sigHint=$("sigHint"),clearSigBtn=$("clearSigBtn"),sigCtx=sigCanvas.getContext("2d"); let drawing=false,last=null,hasDrawnStroke=false; const saveState=()=>{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));$("savedHint").textContent=t("saved");clearTimeout(saveState._t);saveState._t=setTimeout(()=>$("savedHint").textContent=t("autosave"),1200)}; const getActive=()=>state.runs.find(r=>r.id===state.activeId)||null,setActive=id=>{state.activeId=id;saveState();renderAll()}; if(!state.runs.length){ const today=new Date().toISOString().slice(0,10); const emptyRun={id:uid(),customer:"",technician:"",date:today,site:"",reference:"",summary:"",notes:"",items:[],signatureDataUrl:"",createdAt:nowISO(),updatedAt:nowISO()}; state.runs.push(emptyRun);state.activeId=emptyRun.id;saveState(); } const escapeHtml=str=>String(str).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;"),touch=r=>r.updatedAt=nowISO(); const progress=r=>{const total=r.items.length,done=r.items.filter(i=>i.done).length,pct=total?Math.round(done/total*100):0;return{total,done,pct}},isComplete=r=>(r.customer||"").trim()&&(r.technician||"").trim()&&(r.date||"").trim()&&(r.signatureDataUrl||"").startsWith("data:image/"); function setStatusPill(r){ if(!r){statusPill.textContent=t("statusEmpty");statusPill.className="pill";return} statusPill.textContent=isComplete(r)?t("statusComplete"):t("statusIncomplete"); statusPill.className=isComplete(r)?"pill ok":"pill warn" } function validateRequiredUI(r){ [{el:customerInput,ok:(r.customer||"").trim()},{el:techInput,ok:(r.technician||"").trim()},{el:dateInput,ok:(r.date||"").trim()}].forEach(x=>x.el.classList.toggle("err",!x.ok)); const sigOk=(r.signatureDataUrl||"").startsWith("data:image/"); sigWrap.style.borderColor=sigOk?"rgba(255,255,255,.12)":"rgba(255,77,109,.55)"; sigWrap.style.boxShadow=sigOk?"none":"0 0 0 4px rgba(255,77,109,.14)"; sigPill.textContent=sigOk?t("signatureOk"):t("signatureMissing"); sigPill.className=sigOk?"pill ok":"pill warn"; sigHint.textContent=sigOk?t("signatureSaved"):t("signatureHint") } function applyTranslations(){ document.documentElement.lang=currentLang; $("appTitle").textContent=t("appTitle"); $("appSubtitle").textContent=t("appSubtitle"); $("runsTitle").textContent=t("runs"); newBtn.textContent=t("newRun"); duplicateBtn.textContent=t("duplicate"); deleteBtn.textContent=t("delete"); exportBtn.textContent=t("export"); pdfBtn.textContent=t("pdfSave"); printBtn.textContent=t("print"); installBtn.textContent=t("install"); $("importLabel").textContent=t("import"); $("kpiRunsLabel").textContent=t("kpiRuns"); $("kpiOpenLabel").textContent=t("kpiIncomplete"); $("tipDuplicate").textContent=t("tipDuplicate"); $("installHelpTitle").textContent=t("installTitle"); $("installHelpText").textContent=t("installHelp"); closeInstallHelpBtn.textContent=t("installClose"); if(!getActive())activeTitleEl.textContent=t("noRunSelected"); emptyState.textContent=t("emptyEditor"); $("customerLabel").innerHTML=`${t("customer")} <span class="req">${t("required")}</span>`; $("techLabel").innerHTML=`${t("technician")} <span class="req">${t("required")}</span>`; $("dateLabel").innerHTML=`${t("date")} <span class="req">${t("required")}</span>`; $("siteLabel").textContent=t("site"); $("refLabel").textContent=t("reference"); $("summaryLabel").textContent=t("summary"); $("notesLabel").textContent=t("notes"); customerInput.placeholder=t("customerPlaceholder"); techInput.placeholder=t("technicianPlaceholder"); searchInput.placeholder=t("searchPlaceholder"); siteInput.placeholder=t("sitePlaceholder"); refInput.placeholder=t("referencePlaceholder"); summaryInput.placeholder=t("summaryPlaceholder"); notesInput.placeholder=t("notesPlaceholder"); resetChecksBtn.textContent=t("resetChecks"); clearSigBtn.textContent=t("clearSignature"); $("newItemTextLabel").textContent=t("newCheckpoint"); $("newItemHintLabel").textContent=t("checkpointHint"); newItemText.placeholder=t("newCheckpointPlaceholder"); newItemHint.placeholder=t("checkpointHintPlaceholder"); addItemBtn.textContent=t("addCheckpoint"); $("signatureLabel").innerHTML=`${t("signature")} <span class="req">${t("required")}</span>`; langDeBtn.classList.toggle("primary",currentLang==="de"); langEnBtn.classList.toggle("primary",currentLang==="en"); setStatusPill(getActive()); validateRequiredUI(getActive()||{customer:"",technician:"",date:"",signatureDataUrl:""}) } function renderKpis(){kpiCount.textContent=String(state.runs.length);kpiOpen.textContent=String(state.runs.filter(r=>!isComplete(r)).length)} function renderLibrary(){ const q=(searchInput.value||"").trim().toLowerCase(),runs=state.runs.slice().sort((a,b)=>(b.updatedAt||"").localeCompare(a.updatedAt||"")); const filtered=!q?runs:runs.filter(r=>(r.customer||"").toLowerCase().includes(q)||(r.technician||"").toLowerCase().includes(q)||(r.date||"").toLowerCase().includes(q)||(r.reference||"").toLowerCase().includes(q)||(r.site||"").toLowerCase().includes(q)); libraryEl.innerHTML=""; if(!filtered.length){const div=document.createElement("div");div.className="empty";div.textContent=t("noResults");libraryEl.appendChild(div);return} for(const r of filtered){ const p=progress(r),complete=isComplete(r),btn=document.createElement("button"); btn.type="button";btn.className="item";btn.style.cursor="pointer";btn.style.textAlign="left";btn.style.width="100%";btn.style.borderColor=r.id===state.activeId?"rgba(124,92,255,.55)":"rgba(255,255,255,.10)";btn.style.boxShadow=r.id===state.activeId?"0 0 0 4px rgba(124,92,255,.16)":"none"; btn.innerHTML=`<div class="item-top"><div><div style="font-weight:780; margin-bottom:4px;">${escapeHtml(r.customer||t("customerMissing"))}</div><div class="muted">${escapeHtml(r.date||t("dateMissing"))} · ${escapeHtml(r.technician||t("technicianMissing"))}</div></div><span class="tag">${p.done}/${p.total}</span></div><div class="muted">${escapeHtml(r.site||"")}</div><div class="row" style="justify-content:space-between; gap:10px;"><div class="muted">${escapeHtml(r.reference||"")}</div><span class="tag">${complete?t("complete"):t("incomplete")}</span></div>`; btn.addEventListener("click",()=>setActive(r.id)); libraryEl.appendChild(btn) } } function drawSignatureFromDataUrl(dataUrl){ sigCtx.clearRect(0,0,sigCanvas.width,sigCanvas.height); sigCtx.fillStyle="#ffffff"; sigCtx.fillRect(0,0,sigCanvas.width,sigCanvas.height); sigCtx.strokeStyle="#111111"; sigCtx.lineWidth=4; sigCtx.lineCap="round"; sigCtx.lineJoin="round"; hasDrawnStroke=false; if(!dataUrl)return; const img=new Image(); img.onload=()=>{sigCtx.drawImage(img,0,0,sigCanvas.width,sigCanvas.height);hasDrawnStroke=true}; img.src=dataUrl } function renderEditor(){ const r=getActive(),has=!!r; emptyState.classList.toggle("hide",has); editorEl.classList.toggle("hide",!has); deleteBtn.disabled=!has; duplicateBtn.disabled=!has; if(!has){activeTitleEl.textContent=t("noRunSelected");setStatusPill(null);return} activeTitleEl.textContent=`${r.customer||t("runDefaultTitle")} · ${r.date||""}`.trim(); setStatusPill(r); customerInput.value=r.customer||""; techInput.value=r.technician||""; dateInput.value=r.date||""; siteInput.value=r.site||""; refInput.value=r.reference||""; summaryInput.value=r.summary||""; notesInput.value=r.notes||""; progressPill.textContent=`${progress(r).pct}% ${t("progressDone")}`; drawSignatureFromDataUrl(r.signatureDataUrl); itemsEl.innerHTML=""; if(!r.items.length){ const div=document.createElement("div"); div.className="empty"; div.textContent=t("noCheckpoints"); itemsEl.appendChild(div) }else for(const it of r.items){ const row=document.createElement("div"); row.className="item"; const top=document.createElement("div"); top.className="item-top"; const leftWrap=document.createElement("div"); leftWrap.style.cssText="display:flex;gap:10px;align-items:flex-start;width:100%"; const cb=document.createElement("input"); cb.className="check"; cb.type="checkbox"; cb.checked=!!it.done; const content=document.createElement("div"); content.style.cssText="display:grid;gap:6px;width:100%"; const titleRow=document.createElement("div"); titleRow.style.cssText="display:flex;gap:8px;align-items:center;flex-wrap:wrap"; const title=document.createElement("div"); title.style.fontWeight="720"; if(it.done){title.style.textDecoration="line-through";title.style.opacity=".85"} title.textContent=it.text||""; titleRow.appendChild(title); if(it.hint){ const hint=document.createElement("span"); hint.className="tag"; hint.textContent=it.hint; titleRow.appendChild(hint) } const note=document.createElement("textarea"); note.className="item-note"; note.placeholder=t("itemNotePlaceholder"); note.value=it.itemNote||""; content.appendChild(titleRow); content.appendChild(note); leftWrap.appendChild(cb); leftWrap.appendChild(content); const btnWrap=document.createElement("div"); btnWrap.className="row"; btnWrap.style.alignItems="flex-start"; const up=document.createElement("button"); up.className="btn smallbtn"; up.type="button"; up.title=t("up"); up.textContent="↑"; const down=document.createElement("button"); down.className="btn smallbtn"; down.type="button"; down.title=t("down"); down.textContent="↓"; const del=document.createElement("button"); del.className="btn smallbtn danger"; del.type="button"; del.title=t("deletePoint"); del.textContent="✕"; btnWrap.append(up,down,del); top.append(leftWrap,btnWrap); row.appendChild(top); cb.addEventListener("change",()=>{ it.done=cb.checked; touch(r); saveState(); renderAll(); }); note.addEventListener("input",()=>{ it.itemNote=note.value; touch(r); saveState(); renderLibrary() }); up.addEventListener("click",()=>moveItem(r,it.id,-1)); down.addEventListener("click",()=>moveItem(r,it.id,1)); del.addEventListener("click",()=>{ if(!confirm(t("deleteItemConfirm")))return; r.items=r.items.filter(x=>x.id!==it.id); touch(r); saveState(); renderAll() }); itemsEl.appendChild(row) } validateRequiredUI(r) } function renderAll(){renderKpis();renderLibrary();renderEditor()} function createRun(){ const today=new Date().toISOString().slice(0,10),r={id:uid(),customer:"",technician:"",date:today,site:"",reference:"",summary:"",notes:"",items:[],signatureDataUrl:"",createdAt:nowISO(),updatedAt:nowISO()}; state.runs.push(r);state.activeId=r.id;saveState();renderAll();setTimeout(()=>customerInput.focus(),50) } function duplicateRun(){ const r=getActive();if(!r)return; const copy=JSON.parse(JSON.stringify(r)); copy.id=uid();copy.createdAt=nowISO();copy.updatedAt=nowISO();copy.date=new Date().toISOString().slice(0,10);copy.signatureDataUrl="";copy.items=(copy.items||[]).map(it=>({...it,id:uid(),done:false,itemNote:""})); state.runs.push(copy);state.activeId=copy.id;saveState();renderAll();setTimeout(()=>customerInput.focus(),50) } function deleteRun(){ const r=getActive();if(!r)return; const label=(r.customer||t("runDefaultTitle"))+(r.date?(" · "+r.date):""); if(!confirm(t("deleteRunConfirm").replace("{label}",label)))return; state.runs=state.runs.filter(x=>x.id!==r.id);state.activeId=state.runs[0]?.id??null;saveState();renderAll() } function addItem(){ const r=getActive();if(!r)return; const text=(newItemText.value||"").trim(),hint=(newItemHint.value||"").trim(); if(!text){newItemText.focus();return} r.items.push({id:uid(),text,hint,done:false,itemNote:""}); newItemText.value="";newItemHint.value="";touch(r);saveState();renderAll() } function moveItem(r,itemId,dir){ const idx=r.items.findIndex(x=>x.id===itemId);if(idx<0)return; const next=idx+dir;if(next<0||next>=r.items.length)return; [r.items[idx],r.items[next]]=[r.items[next],r.items[idx]]; touch(r);saveState();renderAll() } function resetChecks(){ const r=getActive();if(!r)return; if(!confirm(t("resetChecksConfirm")))return; r.items=r.items.map(it=>({...it,done:false,itemNote:""})); touch(r);saveState();renderAll() } [customerInput,techInput,dateInput,siteInput,refInput,summaryInput,notesInput].forEach(el=>el.addEventListener("input",()=>{ const r=getActive();if(!r)return; r.customer=customerInput.value; r.technician=techInput.value; r.date=dateInput.value; r.site=siteInput.value; r.reference=refInput.value; r.summary=summaryInput.value; r.notes=notesInput.value; touch(r);saveState();renderLibrary();renderEditor() })); function getCanvasPos(e){ const rect=sigCanvas.getBoundingClientRect(); return{x:(e.clientX-rect.left)*(sigCanvas.width/rect.width),y:(e.clientY-rect.top)*(sigCanvas.height/rect.height)} } function startDraw(e){e.preventDefault();drawing=true;last=getCanvasPos(e)} function moveDraw(e){if(!drawing)return;e.preventDefault();const p=getCanvasPos(e);sigCtx.beginPath();sigCtx.moveTo(last.x,last.y);sigCtx.lineTo(p.x,p.y);sigCtx.stroke();last=p;hasDrawnStroke=true} function endDraw(e){if(e)e.preventDefault();if(!drawing)return;drawing=false;last=null;if(hasDrawnStroke){const r=getActive();if(!r)return;r.signatureDataUrl=sigCanvas.toDataURL("image/png");touch(r);saveState();validateRequiredUI(r);setStatusPill(r);renderLibrary()}} sigCanvas.addEventListener("pointerdown",e=>{try{sigCanvas.setPointerCapture&&sigCanvas.setPointerCapture(e.pointerId)}catch{}startDraw(e)},{passive:false}); sigCanvas.addEventListener("pointermove",moveDraw,{passive:false}); sigCanvas.addEventListener("pointerup",endDraw,{passive:false}); sigCanvas.addEventListener("pointercancel",endDraw,{passive:false}); clearSigBtn.addEventListener("click",()=>{ const r=getActive();if(!r)return; if(!confirm(t("clearSigConfirm")))return; r.signatureDataUrl=""; touch(r);saveState();drawSignatureFromDataUrl("");validateRequiredUI(r);setStatusPill(r);renderLibrary() }); function buildPrintableHtml(r){ const p=progress(r); const lines=r.items.map(it=>`<div style="padding:10px 0; border-bottom:1px solid #ddd;"><div><span style="display:inline-block; width:18px;">${it.done?"☑":"☐"}</span><b>${escapeHtml(it.text||"")}</b>${it.hint?`<span style="margin-left:8px; color:#666;">(${escapeHtml(it.hint)})</span>`:""}</div>${it.itemNote?`<div style="margin-left:18px; color:#444; white-space:pre-wrap;">${t("noteLabel")}: ${escapeHtml(it.itemNote)}</div>`:""}</div>`).join(""); const sigImg=r.signatureDataUrl?`<img src="${r.signatureDataUrl}" alt="Unterschrift" style="max-width:520px; width:100%; border:1px solid #ddd; border-radius:10px; background:#fff;" />`:"<i>—</i>"; return `<html><head><title>${t("protocolTitle")}: ${escapeHtml(r.customer||"")}</title><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><style>body{font-family:Arial,sans-serif; padding:22px; color:#111}.grid{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px}.box{border:1px solid #ddd; border-radius:12px; padding:10px 12px; background:#fafafa}.label{color:#555; font-size:12px; margin-bottom:2px}.value{font-weight:700}@media (max-width:700px){.grid{grid-template-columns:1fr}}</style></head><body><h1>${t("protocolTitle")}</h1><div class="grid"><div class="box"><div class="label">${t("customer")}</div><div class="value">${escapeHtml(r.customer)}</div></div><div class="box"><div class="label">${t("date")}</div><div class="value">${escapeHtml(r.date)}</div></div><div class="box"><div class="label">${t("technician")}</div><div class="value">${escapeHtml(r.technician)}</div></div><div class="box"><div class="label">${t("reference")}</div><div class="value">${escapeHtml(r.reference||t("noValue"))}</div></div><div class="box" style="grid-column:1 / -1;"><div class="label">${t("site")}</div><div class="value">${escapeHtml(r.site||t("noValue"))}</div></div><div class="box" style="grid-column:1 / -1;"><div class="label">${t("summary")}</div><div class="value">${escapeHtml(r.summary||t("noValue"))}</div></div></div>${r.notes?`<div class="box" style="margin-top:12px;"><div class="label">${t("notes")}</div><div style="white-space:pre-wrap;">${escapeHtml(r.notes)}</div></div>`:""}<div style="margin-top:16px;"><div class="label" style="margin-bottom:6px;">${t("checkpointsLabel")} (${p.done}/${p.total}, ${p.pct}%)</div>${lines||`<div style='color:#666;'>${t("noCheckpointsPrint")}</div>`}</div><div style="margin-top:16px;"><div class="label" style="margin-bottom:6px;">${t("signatureRequired")}</div>${sigImg}</div><div style="margin-top:18px; color:#666; font-size:12px;">${t("printCreatedAt")} ${new Date().toLocaleString(currentLang==="de"?"de-DE":"en-GB")}</div></body></html>` } function printCurrent(){ const r=getActive();if(!r)return; if(!isComplete(r)){alert(t("incompleteProtocol"));validateRequiredUI(r);return} const w=window.open("","_blank"); if(!w){alert(t("printWindowFailed"));return} w.document.open();w.document.write(buildPrintableHtml(r));w.document.close(); setTimeout(()=>{try{w.focus();w.print()}catch{}},500) } async function saveCurrentAsPdf(){ const r=getActive();if(!r)return; if(!isComplete(r)){alert(t("incompleteProtocol"));validateRequiredUI(r);return} const wrapper=document.createElement("div"); wrapper.style.cssText="padding:22px;font-family:Arial,sans-serif;color:#111;background:#fff"; wrapper.innerHTML=buildPrintableHtml(r).match(/<body>([\s\S]*)<\/body>/)[1]; document.body.appendChild(wrapper); try{ await html2pdf().set({margin:10,filename:`einsatzprotokoll_${(r.customer||"protokoll").replace(/\s+/g,"_")}_${r.date||""}.pdf`,image:{type:"jpeg",quality:.98},html2canvas:{scale:2,useCORS:true},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"}}).from(wrapper).save() }finally{wrapper.remove()} } const isStandalone=()=>window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone===true; async function handleInstall(){if(isStandalone()){alert(t("offlineReady"));return}if(deferredInstallPrompt){try{deferredInstallPrompt.prompt();await deferredInstallPrompt.userChoice;deferredInstallPrompt=null;return}catch{}}installHelp.classList.remove("hide")} async function registerServiceWorker(){if(!("serviceWorker" in navigator))return;try{await navigator.serviceWorker.register("./sw.js")}catch(err){console.warn("Service Worker Fehler:",err)}} newBtn.addEventListener("click",createRun); duplicateBtn.addEventListener("click",duplicateRun); deleteBtn.addEventListener("click",deleteRun); addItemBtn.addEventListener("click",addItem); resetChecksBtn.addEventListener("click",resetChecks); printBtn.addEventListener("click",printCurrent); pdfBtn.addEventListener("click",saveCurrentAsPdf); exportBtn.addEventListener("click",()=>{ const payload={version:2,exportedAt:nowISO(),runs:state.runs},json=JSON.stringify(payload,null,2),blob=new Blob([json],{type:"application/json"}),isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1); if(isIOS){ const reader=new FileReader(); reader.onload=()=>{const w=window.open(reader.result,"_blank");if(!w)alert(t("exportFailedIOS"))}; reader.readAsDataURL(blob); return } const url=URL.createObjectURL(blob),a=document.createElement("a"); a.href=url;a.download=`einsatzprotokolle_${new Date().toISOString().slice(0,10)}.json`; document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000) }); installBtn.addEventListener("click",handleInstall); closeInstallHelpBtn.addEventListener("click",()=>installHelp.classList.add("hide")); installHelp.addEventListener("click",e=>{if(e.target===installHelp)installHelp.classList.add("hide")}); importFile.addEventListener("change",async()=>{ const f=importFile.files?.[0];if(!f)return; try{ const text=await f.text();const parsed=JSON.parse(text),data=parsed?.runs; if(!Array.isArray(data))throw new Error(t("invalidFormat")); const cleaned=data.map(r=>({id:r.id||uid(),customer:String(r.customer||""),technician:String(r.technician||""),date:String(r.date||""),site:String(r.site||""),reference:String(r.reference||""),summary:String(r.summary||""),notes:String(r.notes||""),items:Array.isArray(r.items)?r.items.map(it=>({id:it.id||uid(),text:String(it.text||""),hint:String(it.hint||""),done:!!it.done,itemNote:String(it.itemNote||"")})):[],signatureDataUrl:typeof r.signatureDataUrl==="string"?r.signatureDataUrl:"",createdAt:r.createdAt||nowISO(),updatedAt:r.updatedAt||nowISO()})); const byId=new Map(state.runs.map(r=>[r.id,r])); for(const r of cleaned)byId.set(r.id,r); state.runs=Array.from(byId.values()); state.activeId=state.activeId&&byId.has(state.activeId)?state.activeId:state.runs[0]?.id??null; saveState();renderAll();alert(t("importSuccess")) }catch(err){alert(t("importFailed")+(err?.message||String(err)))}finally{importFile.value=""} }); searchInput.addEventListener("input",renderLibrary); newItemText.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();addItem()}}); langDeBtn.addEventListener("click",()=>{currentLang="de";localStorage.setItem(LANG_KEY,currentLang);applyTranslations();renderAll()}); langEnBtn.addEventListener("click",()=>{currentLang="en";localStorage.setItem(LANG_KEY,currentLang);applyTranslations();renderAll()}); window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredInstallPrompt=e}); applyTranslations(); drawSignatureFromDataUrl(""); renderAll(); registerServiceWorker(); </script> </body> </html>
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hertwich SER_Einsatzprotokolle</title>
+<meta name="description" content="Einsatzprotokolle: Checkliste, Pflichtfelder, Signatur, Export/Import." />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="SER Projekte">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#858dda">
+<meta name="format-detection" content="telephone=no">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" sizes="120x120" href="icon-120.png">
+<link rel="apple-touch-icon" sizes="152x152" href="icon-152.png">
+<link rel="apple-touch-icon" sizes="167x167" href="icon-167.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icon-180.png">
+<style>
+:root{--bg:#858dda;--card:rgba(255,255,255,.06);--text:rgba(255,255,255,.92);--muted:rgba(255,255,255,.72);--border:rgba(255,255,255,.14);--danger:#ff4d6d;--ok:#2ee59d;--warn:#ffcc66;--radius:16px;--shadow:0 18px 55px rgba(7,7,7,.35);--max:1240px}
+*{box-sizing:border-box}html,body{margin:0;padding:0;width:100%;overflow-x:hidden;-webkit-text-size-adjust:100%}
+body{font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(900px 520px at 15% 10%, rgba(124,92,255,.22), transparent 60%),radial-gradient(800px 460px at 90% 15%, rgba(36,210,255,.18), transparent 55%),linear-gradient(180deg, #070a14 0%, var(--bg) 100%);color:var(--text);line-height:1.45}
+.wrap{max-width:var(--max);margin:0 auto;padding:18px 18px 48px}
+header{position:sticky;top:0;z-index:20;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);background:rgba(78,110,218,.55);border-bottom:1px solid var(--border)}
+.bar{max-width:var(--max);margin:0 auto;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px;min-width:0}
+.logo{width:85px;height:27px;border-radius:10px;background-image:url("Bilder/HE-Logo.png");background-repeat:no-repeat;background-position:center;background-size:contain;flex:0 0 auto}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 12px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,.05);color:var(--text);cursor:pointer;transition:150ms ease;user-select:none;font:inherit;-webkit-appearance:none;appearance:none}
+.btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.08)}.btn.primary{border-color:rgba(124,92,255,.45);background:linear-gradient(135deg, rgba(124,92,255,.95), rgba(36,210,255,.70))}.btn.danger{border-color:rgba(255,77,109,.45);background:rgba(255,77,109,.12)}.btn.ghost{background:transparent}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--muted);font-size:13px;white-space:nowrap}.pill.ok{border-color:rgba(46,229,157,.35);background:rgba(46,229,156,.082);color:rgba(255,255,255,.88)}.pill.warn{border-color:rgba(255,204,102,.34);background:rgba(255,204,102,.10);color:rgba(255,255,255,.88)}
+.grid{display:grid;grid-template-columns:380px 1fr;gap:16px;align-items:start;margin-top:16px}.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.card-head{padding:14px 14px 10px;display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid rgba(255,255,255,.08)}.card-head h2{margin:0;font-size:16px;min-width:0}.card-body{padding:14px}
+.row{display:flex;gap:10px;align-items:center;min-width:0}.col{display:grid;gap:8px;min-width:0}label{font-size:13px;color:var(--muted)}
+
+input:not([type="checkbox"]),textarea{
+  width:100%;
+  padding:10px 11px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:rgba(0,0,0,.18);
+  color:var(--text);
+  outline:none;
+  font:inherit;
+  -webkit-appearance:none;
+  appearance:none
+}
+
+textarea{min-height:90px;resize:vertical}
+
+input:not([type="checkbox"]):focus,textarea:focus{
+  border-color:rgba(124,92,255,.55);
+  box-shadow:0 0 0 4px rgba(124,92,255,.18)
+}
+
+.req{display:inline-flex;align-items:center;gap:6px;margin-left:6px;font-size:12px;color:rgba(255,255,255,.82);padding:2px 8px;border-radius:999px;border:1px solid rgba(255,204,102,.35);background:rgba(255,204,102,.10)}
+.err{border-color:rgba(255,77,109,.55)!important;box-shadow:0 0 0 4px rgba(255,77,109,.16)!important}.muted{color:var(--muted);font-size:13px}.list{display:grid;gap:10px}
+.item{display:grid;gap:8px;padding:12px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(255,255,255,.04);min-width:0}.item-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.tag{font-size:12px;color:var(--muted);border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);padding:4px 8px;border-radius:999px;white-space:nowrap}.smallbtn{padding:7px 9px;border-radius:12px;font-size:13px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:12px}.kpi{display:grid;gap:4px;padding:10px 12px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(255,255,255,.03)}.kpi b{font-size:16px}.kpi span{font-size:12px;color:var(--muted)}
+.empty{padding:16px;border:1px dashed rgba(255,255,255,.18);border-radius:16px;color:var(--muted)}.footer-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-top:12px}.hide{display:none}
+
+.check{
+  width:18px;
+  height:18px;
+  margin-top:2px;
+  accent-color:#8b7cff;
+  flex:0 0 auto;
+  -webkit-appearance:auto;
+  appearance:auto;
+  padding:0;
+  background:transparent;
+  border:none;
+  border-radius:4px;
+  cursor:pointer
+}
+
+.sig-wrap{border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.18);border-radius:16px;overflow:hidden}
+canvas{width:100%;max-width:100%;height:160px;display:block;touch-action:none}.sig-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px;border-top:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.03);flex-wrap:wrap}
+.modal{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.45);padding:20px}.modal-card{max-width:520px;margin:8vh auto 0;background:#1a214f;color:white;border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:18px;box-shadow:0 18px 55px rgba(7,7,7,.35)}
+.modal-title{font-size:18px;font-weight:800;margin-bottom:10px}.modal-text{line-height:1.5;color:rgba(255,255,255,.9)}
+@media (max-width:980px){.grid{grid-template-columns:1fr}.split{grid-template-columns:1fr}}@media (max-width:700px){.wrap{padding:14px 14px 38px}.bar{flex-direction:column;align-items:stretch}.brand{justify-content:center}.card-head{flex-direction:column;align-items:stretch}.row{flex-wrap:wrap}.footer-actions{flex-direction:column;align-items:stretch}}
+</style>
+</head>
+<body>
+<header><div class="bar"><div class="brand"><div class="logo" aria-hidden="true"></div><div><div id="appTitle">SER_Projekte</div><div class="muted" id="appSubtitle">Checklisten</div></div></div><div class="row" style="flex-wrap:wrap; justify-content:flex-end;"><span class="pill" id="statusPill">Status: —</span><button class="btn smallbtn" id="langDeBtn" type="button">DE</button><button class="btn smallbtn" id="langEnBtn" type="button">EN</button><button class="btn" id="installBtn" type="button">App installieren</button><button class="btn" id="exportBtn" type="button">Export</button><label class="btn ghost" for="importFile" id="importLabel" style="cursor:pointer">Import</label><input id="importFile" type="file" accept="application/json" class="hide" /></div></div></header>
+
+<main class="wrap"><div class="grid">
+<section class="card">
+<div class="card-head"><h2 id="runsTitle">Einsätze</h2><button class="btn primary" id="newBtn" type="button">+ Neuer Einsatz</button></div>
+<div class="card-body col">
+<input id="searchInput" placeholder="Suchen (Kunde, Techniker, Datum) …" />
+<div class="split"><div class="kpi"><b id="kpiCount">0</b><span id="kpiRunsLabel">Einsätze</span></div><div class="kpi"><b id="kpiOpen">0</b><span id="kpiOpenLabel">unvollständig</span></div></div>
+<div id="library" class="list"></div>
+<div class="muted" id="tipDuplicate">Tipp: “Duplizieren” kopiert einen Einsatz als Basis für den nächsten.</div>
+</div>
+</section>
+
+<section class="card">
+<div class="card-head"><h2 id="activeTitle">Kein Einsatz ausgewählt</h2><div class="row"><button class="btn" id="duplicateBtn" type="button" disabled>Duplizieren</button><button class="btn danger" id="deleteBtn" type="button" disabled>Löschen</button></div></div>
+<div class="card-body col">
+<div id="emptyState" class="empty">Links einen Einsatz auswählen oder “Neuer Einsatz”.</div>
+<div id="editor" class="col hide">
+<div class="split"><div class="col"><label for="customerInput" id="customerLabel">Kunde <span class="req">Pflicht</span></label><input id="customerInput" placeholder="z. B. 499.SER.000" /></div><div class="col"><label for="techInput" id="techLabel">Techniker <span class="req">Pflicht</span></label><input id="techInput" placeholder="z. B. Christian Aigner" /></div></div>
+<div class="split"><div class="col"><label for="dateInput" id="dateLabel">Datum <span class="req">Pflicht</span></label><input id="dateInput" type="date" /></div><div class="col"><label for="siteInput" id="siteLabel">Einsatzort / Objekt</label><input id="siteInput" placeholder="Adresse / Standort / Anlage" /></div></div>
+<div class="split"><div class="col"><label for="refInput" id="refLabel">Auftrag / Ticket</label><input id="refInput" placeholder="z. B. Auftragsnummer" /></div><div class="col"><label for="summaryInput" id="summaryLabel">Kurzbeschreibung</label><input id="summaryInput" placeholder="z. B. Durchsicht, Service, Inbetriebnahme" /></div></div>
+<div class="col"><label for="notesInput" id="notesLabel">Notizen</label><textarea id="notesInput" placeholder="z. B. Messwerte, Besonderheiten, Ersatzteile …"></textarea></div>
+<hr style="border:none; border-top:1px solid rgba(255,250,250,.1); width:100%; margin:6px 0;">
+<div class="row" style="justify-content:space-between; flex-wrap:wrap;"><div class="pill" id="progressPill">0% erledigt</div><div class="row" style="flex-wrap:wrap;"><button class="btn" id="resetChecksBtn" type="button">Checkpunkte zurücksetzen</button><button class="btn" id="clearSigBtn" type="button">Unterschrift löschen</button></div></div>
+<div class="split"><div class="col"><label for="newItemText" id="newItemTextLabel">Neuer Checkpunkt</label><input id="newItemText" placeholder="z. B. Filter prüfen" /></div><div class="col"><label for="newItemHint" id="newItemHintLabel">Hinweis (optional)</label><input id="newItemHint" placeholder="z. B. Ersatzfilter" /></div></div>
+<div class="row" style="justify-content:flex-start; flex-wrap:wrap;"><button class="btn primary" id="addItemBtn" type="button">+ Punkt hinzufügen</button></div>
+<div id="items" class="list"></div>
+<hr style="border:none; border-top:1px solid rgba(255,255,255,.10); width:100%; margin:6px 0;">
+<div class="col"><label id="signatureLabel">Unterschrift <span class="req">Pflicht</span></label><div class="sig-wrap" id="sigWrap"><canvas id="sigCanvas" width="1200" height="320"></canvas><div class="sig-bar"><div class="muted" id="sigHint">Mit Maus oder Finger unterschreiben.</div><div class="row"><span class="pill" id="sigPill">Signatur: fehlt</span></div></div></div></div>
+<div class="footer-actions"><div class="muted" id="savedHint">Änderungen werden automatisch gespeichert.</div><div class="row" style="flex-wrap:wrap;"><button class="btn" id="pdfBtn" type="button">PDF speichern</button><button class="btn" id="printBtn" type="button">Drucken / PDF</button></div></div>
+</div>
+</div>
+</section>
+</div></main>
+
+<div id="installHelp" class="modal hide"><div class="modal-card"><div class="modal-title" id="installHelpTitle">App installieren</div><div class="modal-text" id="installHelpText">Auf dem iPhone in Safari öffnen, dann Teilen und „Zum Home-Bildschirm“ wählen.</div><div style="display:flex; gap:10px; justify-content:flex-end; margin-top:16px;"><button class="btn" id="closeInstallHelpBtn" type="button">Schließen</button></div></div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+const STORAGE_KEY="service_runs_v2",LANG_KEY="service_runs_lang";let currentLang=localStorage.getItem(LANG_KEY)||"de",deferredInstallPrompt=null;
+const i18n={de:{appTitle:"SER_Projekte",appSubtitle:"Checklisten",statusEmpty:"Status: —",statusComplete:"Status: vollständig",statusIncomplete:"Status: unvollständig",runs:"Einsätze",newRun:"+ Neuer Einsatz",duplicate:"Duplizieren",delete:"Löschen",export:"Export",import:"Import",print:"Drucken / PDF",pdfSave:"PDF speichern",install:"App installieren",installTitle:"App installieren",installHelp:"Auf dem iPhone in Safari öffnen, dann Teilen und „Zum Home-Bildschirm“ wählen.",installClose:"Schließen",offlineReady:"Offline-Modus aktiv",noRunSelected:"Kein Einsatz ausgewählt",emptyEditor:"Links einen Einsatz auswählen oder “Neuer Einsatz”.",searchPlaceholder:"Suchen (Kunde, Techniker, Datum) …",kpiRuns:"Einsätze",kpiIncomplete:"unvollständig",tipDuplicate:"Tipp: “Duplizieren” kopiert einen Einsatz als Basis für den nächsten.",customer:"Kunde",technician:"Techniker",date:"Datum",site:"Einsatzort / Objekt",reference:"Auftrag / Ticket",summary:"Kurzbeschreibung",notes:"Notizen",required:"Pflicht",customerPlaceholder:"z. B. 499.SER.000",technicianPlaceholder:"z. B. Christian Aigner",sitePlaceholder:"Adresse / Standort / Anlage",referencePlaceholder:"z. B. Auftragsnummer",summaryPlaceholder:"z. B. Durchsicht, Service, Inbetriebnahme",notesPlaceholder:"z. B. Messwerte, Besonderheiten, Ersatzteile …",progressDone:"erledigt",resetChecks:"Checkpunkte zurücksetzen",clearSignature:"Unterschrift löschen",newCheckpoint:"Neuer Checkpunkt",newCheckpointPlaceholder:"z. B. Filter prüfen",checkpointHint:"Hinweis (optional)",checkpointHintPlaceholder:"z. B. Ersatzfilter",addCheckpoint:"+ Punkt hinzufügen",noCheckpoints:"Noch keine Checkpunkte. Füge oben einen Punkt hinzu.",signature:"Unterschrift",signatureMissing:"Signatur: fehlt",signatureOk:"Signatur: ok",signatureHint:"Mit Maus oder Finger unterschreiben.",signatureSaved:"Unterschrift gespeichert.",autosave:"Änderungen werden automatisch gespeichert.",saved:"Gespeichert ✓",noResults:"Keine Treffer. Suche ändern oder neuen Einsatz anlegen.",customerMissing:"Kunde fehlt",dateMissing:"Datum fehlt",technicianMissing:"Techniker fehlt",complete:"vollständig",incomplete:"unvollständig",deleteRunConfirm:'Einsatz "{label}" wirklich löschen?',deleteItemConfirm:"Diesen Checkpunkt wirklich löschen?",resetChecksConfirm:"Alle Checkpunkte zurücksetzen (Haken & Punkt-Notizen)?",clearSigConfirm:"Unterschrift wirklich löschen?",importSuccess:"Import erfolgreich.",importFailed:"Import fehlgeschlagen: ",invalidFormat:"Ungültiges Format (runs fehlt).",exportFailedIOS:"Export konnte auf diesem Gerät nicht direkt geöffnet werden.",printWindowFailed:"Druckansicht konnte nicht geöffnet werden.",incompleteProtocol:"Dieses Protokoll ist noch unvollständig (Kunde/Techniker/Datum/Unterschrift).",runDefaultTitle:"Einsatz",protocolTitle:"Einsatzprotokoll",printCreatedAt:"Erstellt/gedruckt am",checkpointsLabel:"Checkpunkte",noCheckpointsPrint:"Keine Checkpunkte",noteLabel:"Notiz",noValue:"-",signatureRequired:"Unterschrift (Pflicht)",up:"Nach oben",down:"Nach unten",deletePoint:"Punkt löschen",itemNotePlaceholder:"Notiz zu diesem Punkt (optional)"},en:{appTitle:"SER_Projects",appSubtitle:"Checklists",statusEmpty:"Status: —",statusComplete:"Status: complete",statusIncomplete:"Status: incomplete",runs:"Jobs",newRun:"+ New job",duplicate:"Duplicate",delete:"Delete",export:"Export",import:"Import",print:"Print / PDF",pdfSave:"Save PDF",install:"Install app",installTitle:"Install app",installHelp:"Open in Safari on iPhone, then tap Share and choose “Add to Home Screen”.",installClose:"Close",offlineReady:"Offline mode active",noRunSelected:"No job selected",emptyEditor:"Select a job on the left or click “New job”.",searchPlaceholder:"Search (customer, technician, date) …",kpiRuns:"Jobs",kpiIncomplete:"incomplete",tipDuplicate:"Tip: “Duplicate” copies a job as a base for the next one.",customer:"Customer",technician:"Technician",date:"Date",site:"Site / Object",reference:"Order / Ticket",summary:"Short description",notes:"Notes",required:"Required",customerPlaceholder:"e.g. 499.SER.000",technicianPlaceholder:"e.g. Christian Aigner",sitePlaceholder:"Address / site / system",referencePlaceholder:"e.g. order number",summaryPlaceholder:"e.g. inspection, service, commissioning",notesPlaceholder:"e.g. measurements, special notes, spare parts …",progressDone:"done",resetChecks:"Reset checkpoints",clearSignature:"Clear signature",newCheckpoint:"New checkpoint",newCheckpointPlaceholder:"e.g. Check filter",checkpointHint:"Hint (optional)",checkpointHintPlaceholder:"e.g. spare filter",addCheckpoint:"+ Add checkpoint",noCheckpoints:"No checkpoints yet. Add one above.",signature:"Signature",signatureMissing:"Signature: missing",signatureOk:"Signature: ok",signatureHint:"Sign with mouse or finger.",signatureSaved:"Signature saved.",autosave:"Changes are saved automatically.",saved:"Saved ✓",noResults:"No results. Change the search or create a new job.",customerMissing:"Customer missing",dateMissing:"Date missing",technicianMissing:"Technician missing",complete:"complete",incomplete:"incomplete",deleteRunConfirm:'Delete job "{label}"?',deleteItemConfirm:"Delete this checkpoint?",resetChecksConfirm:"Reset all checkpoints (checks and notes)?",clearSigConfirm:"Delete signature?",importSuccess:"Import successful.",importFailed:"Import failed: ",invalidFormat:"Invalid format (runs missing).",exportFailedIOS:"Export could not be opened directly on this device.",printWindowFailed:"Print preview could not be opened.",incompleteProtocol:"This protocol is still incomplete (customer/technician/date/signature).",runDefaultTitle:"Job",protocolTitle:"Service Report",printCreatedAt:"Created/printed on",checkpointsLabel:"Checkpoints",noCheckpointsPrint:"No checkpoints",noteLabel:"Note",noValue:"-",signatureRequired:"Signature (required)",up:"Move up",down:"Move down",deletePoint:"Delete checkpoint",itemNotePlaceholder:"Note for this checkpoint (optional)"}};
+const t=k=>i18n[currentLang]?.[k]??k,uid=()=> "r_"+Math.random().toString(16).slice(2)+Date.now().toString(16),nowISO=()=>new Date().toISOString();
+let state=(()=>{try{const raw=localStorage.getItem(STORAGE_KEY);if(!raw)return{runs:[],activeId:null};const p=JSON.parse(raw);if(!p||!Array.isArray(p.runs))return{runs:[],activeId:null};return{runs:p.runs,activeId:p.activeId??null}}catch{return{runs:[],activeId:null}}})();
+const $=id=>document.getElementById(id),libraryEl=$("library"),searchInput=$("searchInput"),kpiCount=$("kpiCount"),kpiOpen=$("kpiOpen"),emptyState=$("emptyState"),editorEl=$("editor"),activeTitleEl=$("activeTitle"),statusPill=$("statusPill"),customerInput=$("customerInput"),techInput=$("techInput"),dateInput=$("dateInput"),siteInput=$("siteInput"),refInput=$("refInput"),summaryInput=$("summaryInput"),notesInput=$("notesInput"),newItemText=$("newItemText"),newItemHint=$("newItemHint"),itemsEl=$("items"),progressPill=$("progressPill"),newBtn=$("newBtn"),duplicateBtn=$("duplicateBtn"),deleteBtn=$("deleteBtn"),addItemBtn=$("addItemBtn"),resetChecksBtn=$("resetChecksBtn"),printBtn=$("printBtn"),pdfBtn=$("pdfBtn"),exportBtn=$("exportBtn"),importFile=$("importFile"),langDeBtn=$("langDeBtn"),langEnBtn=$("langEnBtn"),installBtn=$("installBtn"),installHelp=$("installHelp"),closeInstallHelpBtn=$("closeInstallHelpBtn"),sigCanvas=$("sigCanvas"),sigWrap=$("sigWrap"),sigPill=$("sigPill"),sigHint=$("sigHint"),clearSigBtn=$("clearSigBtn"),sigCtx=sigCanvas.getContext("2d");
+let drawing=false,last=null,hasDrawnStroke=false;
+
+const saveState=()=>{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));$("savedHint").textContent=t("saved");clearTimeout(saveState._t);saveState._t=setTimeout(()=>$("savedHint").textContent=t("autosave"),1200)};
+const getActive=()=>state.runs.find(r=>r.id===state.activeId)||null,setActive=id=>{state.activeId=id;saveState();renderAll()};
+
+if(!state.runs.length){
+  const today=new Date().toISOString().slice(0,10);
+  const emptyRun={id:uid(),customer:"",technician:"",date:today,site:"",reference:"",summary:"",notes:"",items:[],signatureDataUrl:"",createdAt:nowISO(),updatedAt:nowISO()};
+  state.runs.push(emptyRun);state.activeId=emptyRun.id;saveState();
+}
+
+const escapeHtml=str=>String(str).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;"),touch=r=>r.updatedAt=nowISO();
+const progress=r=>{const total=r.items.length,done=r.items.filter(i=>i.done).length,pct=total?Math.round(done/total*100):0;return{total,done,pct}},isComplete=r=>(r.customer||"").trim()&&(r.technician||"").trim()&&(r.date||"").trim()&&(r.signatureDataUrl||"").startsWith("data:image/");
+
+function setStatusPill(r){
+  if(!r){statusPill.textContent=t("statusEmpty");statusPill.className="pill";return}
+  statusPill.textContent=isComplete(r)?t("statusComplete"):t("statusIncomplete");
+  statusPill.className=isComplete(r)?"pill ok":"pill warn"
+}
+
+function validateRequiredUI(r){
+  [{el:customerInput,ok:(r.customer||"").trim()},{el:techInput,ok:(r.technician||"").trim()},{el:dateInput,ok:(r.date||"").trim()}].forEach(x=>x.el.classList.toggle("err",!x.ok));
+  const sigOk=(r.signatureDataUrl||"").startsWith("data:image/");
+  sigWrap.style.borderColor=sigOk?"rgba(255,255,255,.12)":"rgba(255,77,109,.55)";
+  sigWrap.style.boxShadow=sigOk?"none":"0 0 0 4px rgba(255,77,109,.14)";
+  sigPill.textContent=sigOk?t("signatureOk"):t("signatureMissing");
+  sigPill.className=sigOk?"pill ok":"pill warn";
+  sigHint.textContent=sigOk?t("signatureSaved"):t("signatureHint")
+}
+
+function applyTranslations(){
+  document.documentElement.lang=currentLang;
+  $("appTitle").textContent=t("appTitle");
+  $("appSubtitle").textContent=t("appSubtitle");
+  $("runsTitle").textContent=t("runs");
+  newBtn.textContent=t("newRun");
+  duplicateBtn.textContent=t("duplicate");
+  deleteBtn.textContent=t("delete");
+  exportBtn.textContent=t("export");
+  pdfBtn.textContent=t("pdfSave");
+  printBtn.textContent=t("print");
+  installBtn.textContent=t("install");
+  $("importLabel").textContent=t("import");
+  $("kpiRunsLabel").textContent=t("kpiRuns");
+  $("kpiOpenLabel").textContent=t("kpiIncomplete");
+  $("tipDuplicate").textContent=t("tipDuplicate");
+  $("installHelpTitle").textContent=t("installTitle");
+  $("installHelpText").textContent=t("installHelp");
+  closeInstallHelpBtn.textContent=t("installClose");
+  if(!getActive())activeTitleEl.textContent=t("noRunSelected");
+  emptyState.textContent=t("emptyEditor");
+  $("customerLabel").innerHTML=`${t("customer")} <span class="req">${t("required")}</span>`;
+  $("techLabel").innerHTML=`${t("technician")} <span class="req">${t("required")}</span>`;
+  $("dateLabel").innerHTML=`${t("date")} <span class="req">${t("required")}</span>`;
+  $("siteLabel").textContent=t("site");
+  $("refLabel").textContent=t("reference");
+  $("summaryLabel").textContent=t("summary");
+  $("notesLabel").textContent=t("notes");
+  customerInput.placeholder=t("customerPlaceholder");
+  techInput.placeholder=t("technicianPlaceholder");
+  searchInput.placeholder=t("searchPlaceholder");
+  siteInput.placeholder=t("sitePlaceholder");
+  refInput.placeholder=t("referencePlaceholder");
+  summaryInput.placeholder=t("summaryPlaceholder");
+  notesInput.placeholder=t("notesPlaceholder");
+  resetChecksBtn.textContent=t("resetChecks");
+  clearSigBtn.textContent=t("clearSignature");
+  $("newItemTextLabel").textContent=t("newCheckpoint");
+  $("newItemHintLabel").textContent=t("checkpointHint");
+  newItemText.placeholder=t("newCheckpointPlaceholder");
+  newItemHint.placeholder=t("checkpointHintPlaceholder");
+  addItemBtn.textContent=t("addCheckpoint");
+  $("signatureLabel").innerHTML=`${t("signature")} <span class="req">${t("required")}</span>`;
+  langDeBtn.classList.toggle("primary",currentLang==="de");
+  langEnBtn.classList.toggle("primary",currentLang==="en");
+  setStatusPill(getActive());
+  validateRequiredUI(getActive()||{customer:"",technician:"",date:"",signatureDataUrl:""})
+}
+
+function renderKpis(){kpiCount.textContent=String(state.runs.length);kpiOpen.textContent=String(state.runs.filter(r=>!isComplete(r)).length)}
+
+function renderLibrary(){
+  const q=(searchInput.value||"").trim().toLowerCase(),runs=state.runs.slice().sort((a,b)=>(b.updatedAt||"").localeCompare(a.updatedAt||""));
+  const filtered=!q?runs:runs.filter(r=>(r.customer||"").toLowerCase().includes(q)||(r.technician||"").toLowerCase().includes(q)||(r.date||"").toLowerCase().includes(q)||(r.reference||"").toLowerCase().includes(q)||(r.site||"").toLowerCase().includes(q));
+  libraryEl.innerHTML="";
+  if(!filtered.length){const div=document.createElement("div");div.className="empty";div.textContent=t("noResults");libraryEl.appendChild(div);return}
+  for(const r of filtered){
+    const p=progress(r),complete=isComplete(r),btn=document.createElement("button");
+    btn.type="button";btn.className="item";btn.style.cursor="pointer";btn.style.textAlign="left";btn.style.width="100%";btn.style.borderColor=r.id===state.activeId?"rgba(124,92,255,.55)":"rgba(255,255,255,.10)";btn.style.boxShadow=r.id===state.activeId?"0 0 0 4px rgba(124,92,255,.16)":"none";
+    btn.innerHTML=`<div class="item-top"><div><div style="font-weight:780; margin-bottom:4px;">${escapeHtml(r.customer||t("customerMissing"))}</div><div class="muted">${escapeHtml(r.date||t("dateMissing"))} · ${escapeHtml(r.technician||t("technicianMissing"))}</div></div><span class="tag">${p.done}/${p.total}</span></div><div class="muted">${escapeHtml(r.site||"")}</div><div class="row" style="justify-content:space-between; gap:10px;"><div class="muted">${escapeHtml(r.reference||"")}</div><span class="tag">${complete?t("complete"):t("incomplete")}</span></div>`;
+    btn.addEventListener("click",()=>setActive(r.id));
+    libraryEl.appendChild(btn)
+  }
+}
+
+function drawSignatureFromDataUrl(dataUrl){
+  sigCtx.clearRect(0,0,sigCanvas.width,sigCanvas.height);
+  sigCtx.fillStyle="#ffffff";
+  sigCtx.fillRect(0,0,sigCanvas.width,sigCanvas.height);
+  sigCtx.strokeStyle="#111111";
+  sigCtx.lineWidth=4;
+  sigCtx.lineCap="round";
+  sigCtx.lineJoin="round";
+  hasDrawnStroke=false;
+  if(!dataUrl)return;
+  const img=new Image();
+  img.onload=()=>{sigCtx.drawImage(img,0,0,sigCanvas.width,sigCanvas.height);hasDrawnStroke=true};
+  img.src=dataUrl
+}
+
+function renderEditor(){
+  const r=getActive(),has=!!r;
+  emptyState.classList.toggle("hide",has);
+  editorEl.classList.toggle("hide",!has);
+  deleteBtn.disabled=!has;
+  duplicateBtn.disabled=!has;
+  if(!has){activeTitleEl.textContent=t("noRunSelected");setStatusPill(null);return}
+  activeTitleEl.textContent=`${r.customer||t("runDefaultTitle")} · ${r.date||""}`.trim();
+  setStatusPill(r);
+  customerInput.value=r.customer||"";
+  techInput.value=r.technician||"";
+  dateInput.value=r.date||"";
+  siteInput.value=r.site||"";
+  refInput.value=r.reference||"";
+  summaryInput.value=r.summary||"";
+  notesInput.value=r.notes||"";
+  progressPill.textContent=`${progress(r).pct}% ${t("progressDone")}`;
+  drawSignatureFromDataUrl(r.signatureDataUrl);
+  itemsEl.innerHTML="";
+  if(!r.items.length){
+    const div=document.createElement("div");
+    div.className="empty";
+    div.textContent=t("noCheckpoints");
+    itemsEl.appendChild(div)
+  }else for(const it of r.items){
+    const row=document.createElement("div");
+    row.className="item";
+    const top=document.createElement("div");
+    top.className="item-top";
+    const leftWrap=document.createElement("div");
+    leftWrap.style.cssText="display:flex;gap:10px;align-items:flex-start;width:100%";
+    const cb=document.createElement("input");
+    cb.className="check";
+    cb.type="checkbox";
+    cb.checked=!!it.done;
+
+    const content=document.createElement("div");
+    content.style.cssText="display:grid;gap:6px;width:100%";
+
+    const titleRow=document.createElement("div");
+    titleRow.style.cssText="display:flex;gap:8px;align-items:center;flex-wrap:wrap";
+
+    const title=document.createElement("div");
+    title.style.fontWeight="720";
+    if(it.done){title.style.textDecoration="line-through";title.style.opacity=".85"}
+    title.textContent=it.text||"";
+    titleRow.appendChild(title);
+
+    if(it.hint){
+      const hint=document.createElement("span");
+      hint.className="tag";
+      hint.textContent=it.hint;
+      titleRow.appendChild(hint)
+    }
+
+    const note=document.createElement("textarea");
+    note.className="item-note";
+    note.placeholder=t("itemNotePlaceholder");
+    note.value=it.itemNote||"";
+
+    content.appendChild(titleRow);
+    content.appendChild(note);
+    leftWrap.appendChild(cb);
+    leftWrap.appendChild(content);
+
+    const btnWrap=document.createElement("div");
+    btnWrap.className="row";
+    btnWrap.style.alignItems="flex-start";
+
+    const up=document.createElement("button");
+    up.className="btn smallbtn";
+    up.type="button";
+    up.title=t("up");
+    up.textContent="↑";
+
+    const down=document.createElement("button");
+    down.className="btn smallbtn";
+    down.type="button";
+    down.title=t("down");
+    down.textContent="↓";
+
+    const del=document.createElement("button");
+    del.className="btn smallbtn danger";
+    del.type="button";
+    del.title=t("deletePoint");
+    del.textContent="✕";
+
+    btnWrap.append(up,down,del);
+    top.append(leftWrap,btnWrap);
+    row.appendChild(top);
+
+    cb.addEventListener("change",()=>{
+      it.done=cb.checked;
+      touch(r);
+      saveState();
+      renderAll();
+    });
+
+    note.addEventListener("input",()=>{
+      it.itemNote=note.value;
+      touch(r);
+      saveState();
+      renderLibrary()
+    });
+
+    up.addEventListener("click",()=>moveItem(r,it.id,-1));
+    down.addEventListener("click",()=>moveItem(r,it.id,1));
+    del.addEventListener("click",()=>{
+      if(!confirm(t("deleteItemConfirm")))return;
+      r.items=r.items.filter(x=>x.id!==it.id);
+      touch(r);
+      saveState();
+      renderAll()
+    });
+
+    itemsEl.appendChild(row)
+  }
+  validateRequiredUI(r)
+}
+
+function renderAll(){renderKpis();renderLibrary();renderEditor()}
+
+function createRun(){
+  const today=new Date().toISOString().slice(0,10),r={id:uid(),customer:"",technician:"",date:today,site:"",reference:"",summary:"",notes:"",items:[],signatureDataUrl:"",createdAt:nowISO(),updatedAt:nowISO()};
+  state.runs.push(r);state.activeId=r.id;saveState();renderAll();setTimeout(()=>customerInput.focus(),50)
+}
+
+function duplicateRun(){
+  const r=getActive();if(!r)return;
+  const copy=JSON.parse(JSON.stringify(r));
+  copy.id=uid();copy.createdAt=nowISO();copy.updatedAt=nowISO();copy.date=new Date().toISOString().slice(0,10);copy.signatureDataUrl="";copy.items=(copy.items||[]).map(it=>({...it,id:uid(),done:false,itemNote:""}));
+  state.runs.push(copy);state.activeId=copy.id;saveState();renderAll();setTimeout(()=>customerInput.focus(),50)
+}
+
+function deleteRun(){
+  const r=getActive();if(!r)return;
+  const label=(r.customer||t("runDefaultTitle"))+(r.date?(" · "+r.date):"");
+  if(!confirm(t("deleteRunConfirm").replace("{label}",label)))return;
+  state.runs=state.runs.filter(x=>x.id!==r.id);state.activeId=state.runs[0]?.id??null;saveState();renderAll()
+}
+
+function addItem(){
+  const r=getActive();if(!r)return;
+  const text=(newItemText.value||"").trim(),hint=(newItemHint.value||"").trim();
+  if(!text){newItemText.focus();return}
+  r.items.push({id:uid(),text,hint,done:false,itemNote:""});
+  newItemText.value="";newItemHint.value="";touch(r);saveState();renderAll()
+}
+
+function moveItem(r,itemId,dir){
+  const idx=r.items.findIndex(x=>x.id===itemId);if(idx<0)return;
+  const next=idx+dir;if(next<0||next>=r.items.length)return;
+  [r.items[idx],r.items[next]]=[r.items[next],r.items[idx]];
+  touch(r);saveState();renderAll()
+}
+
+function resetChecks(){
+  const r=getActive();if(!r)return;
+  if(!confirm(t("resetChecksConfirm")))return;
+  r.items=r.items.map(it=>({...it,done:false,itemNote:""}));
+  touch(r);saveState();renderAll()
+}
+
+[customerInput,techInput,dateInput,siteInput,refInput,summaryInput,notesInput].forEach(el=>el.addEventListener("input",()=>{
+  const r=getActive();if(!r)return;
+  r.customer=customerInput.value;
+  r.technician=techInput.value;
+  r.date=dateInput.value;
+  r.site=siteInput.value;
+  r.reference=refInput.value;
+  r.summary=summaryInput.value;
+  r.notes=notesInput.value;
+  touch(r);saveState();renderLibrary();renderEditor()
+}));
+
+function getCanvasPos(e){
+  const rect=sigCanvas.getBoundingClientRect();
+  return{x:(e.clientX-rect.left)*(sigCanvas.width/rect.width),y:(e.clientY-rect.top)*(sigCanvas.height/rect.height)}
+}
+function startDraw(e){e.preventDefault();drawing=true;last=getCanvasPos(e)}
+function moveDraw(e){if(!drawing)return;e.preventDefault();const p=getCanvasPos(e);sigCtx.beginPath();sigCtx.moveTo(last.x,last.y);sigCtx.lineTo(p.x,p.y);sigCtx.stroke();last=p;hasDrawnStroke=true}
+function endDraw(e){if(e)e.preventDefault();if(!drawing)return;drawing=false;last=null;if(hasDrawnStroke){const r=getActive();if(!r)return;r.signatureDataUrl=sigCanvas.toDataURL("image/png");touch(r);saveState();validateRequiredUI(r);setStatusPill(r);renderLibrary()}}
+
+sigCanvas.addEventListener("pointerdown",e=>{try{sigCanvas.setPointerCapture&&sigCanvas.setPointerCapture(e.pointerId)}catch{}startDraw(e)},{passive:false});
+sigCanvas.addEventListener("pointermove",moveDraw,{passive:false});
+sigCanvas.addEventListener("pointerup",endDraw,{passive:false});
+sigCanvas.addEventListener("pointercancel",endDraw,{passive:false});
+
+clearSigBtn.addEventListener("click",()=>{
+  const r=getActive();if(!r)return;
+  if(!confirm(t("clearSigConfirm")))return;
+  r.signatureDataUrl="";
+  touch(r);saveState();drawSignatureFromDataUrl("");validateRequiredUI(r);setStatusPill(r);renderLibrary()
+});
+
+function buildPrintableHtml(r){
+  const p=progress(r);
+  const lines=r.items.map(it=>`<div style="padding:10px 0; border-bottom:1px solid #ddd;"><div><span style="display:inline-block; width:18px;">${it.done?"☑":"☐"}</span><b>${escapeHtml(it.text||"")}</b>${it.hint?`<span style="margin-left:8px; color:#666;">(${escapeHtml(it.hint)})</span>`:""}</div>${it.itemNote?`<div style="margin-left:18px; color:#444; white-space:pre-wrap;">${t("noteLabel")}: ${escapeHtml(it.itemNote)}</div>`:""}</div>`).join("");
+  const sigImg=r.signatureDataUrl?`<img src="${r.signatureDataUrl}" alt="Unterschrift" style="max-width:520px; width:100%; border:1px solid #ddd; border-radius:10px; background:#fff;" />`:"<i>—</i>";
+  return `<html><head><title>${t("protocolTitle")}: ${escapeHtml(r.customer||"")}</title><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><style>body{font-family:Arial,sans-serif; padding:22px; color:#111}.grid{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px}.box{border:1px solid #ddd; border-radius:12px; padding:10px 12px; background:#fafafa}.label{color:#555; font-size:12px; margin-bottom:2px}.value{font-weight:700}@media (max-width:700px){.grid{grid-template-columns:1fr}}</style></head><body><h1>${t("protocolTitle")}</h1><div class="grid"><div class="box"><div class="label">${t("customer")}</div><div class="value">${escapeHtml(r.customer)}</div></div><div class="box"><div class="label">${t("date")}</div><div class="value">${escapeHtml(r.date)}</div></div><div class="box"><div class="label">${t("technician")}</div><div class="value">${escapeHtml(r.technician)}</div></div><div class="box"><div class="label">${t("reference")}</div><div class="value">${escapeHtml(r.reference||t("noValue"))}</div></div><div class="box" style="grid-column:1 / -1;"><div class="label">${t("site")}</div><div class="value">${escapeHtml(r.site||t("noValue"))}</div></div><div class="box" style="grid-column:1 / -1;"><div class="label">${t("summary")}</div><div class="value">${escapeHtml(r.summary||t("noValue"))}</div></div></div>${r.notes?`<div class="box" style="margin-top:12px;"><div class="label">${t("notes")}</div><div style="white-space:pre-wrap;">${escapeHtml(r.notes)}</div></div>`:""}<div style="margin-top:16px;"><div class="label" style="margin-bottom:6px;">${t("checkpointsLabel")} (${p.done}/${p.total}, ${p.pct}%)</div>${lines||`<div style='color:#666;'>${t("noCheckpointsPrint")}</div>`}</div><div style="margin-top:16px;"><div class="label" style="margin-bottom:6px;">${t("signatureRequired")}</div>${sigImg}</div><div style="margin-top:18px; color:#666; font-size:12px;">${t("printCreatedAt")} ${new Date().toLocaleString(currentLang==="de"?"de-DE":"en-GB")}</div></body></html>`
+}
+
+function printCurrent(){
+  const r=getActive();if(!r)return;
+  if(!isComplete(r)){alert(t("incompleteProtocol"));validateRequiredUI(r);return}
+  const w=window.open("","_blank");
+  if(!w){alert(t("printWindowFailed"));return}
+  w.document.open();w.document.write(buildPrintableHtml(r));w.document.close();
+  setTimeout(()=>{try{w.focus();w.print()}catch{}},500)
+}
+
+async function saveCurrentAsPdf(){
+  const r=getActive();if(!r)return;
+  if(!isComplete(r)){alert(t("incompleteProtocol"));validateRequiredUI(r);return}
+  const wrapper=document.createElement("div");
+  wrapper.style.cssText="padding:22px;font-family:Arial,sans-serif;color:#111;background:#fff";
+  wrapper.innerHTML=buildPrintableHtml(r).match(/<body>([\s\S]*)<\/body>/)[1];
+  document.body.appendChild(wrapper);
+  try{
+    await html2pdf().set({margin:10,filename:`einsatzprotokoll_${(r.customer||"protokoll").replace(/\s+/g,"_")}_${r.date||""}.pdf`,image:{type:"jpeg",quality:.98},html2canvas:{scale:2,useCORS:true},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"}}).from(wrapper).save()
+  }finally{wrapper.remove()}
+}
+
+const isStandalone=()=>window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone===true;
+async function handleInstall(){if(isStandalone()){alert(t("offlineReady"));return}if(deferredInstallPrompt){try{deferredInstallPrompt.prompt();await deferredInstallPrompt.userChoice;deferredInstallPrompt=null;return}catch{}}installHelp.classList.remove("hide")}
+async function registerServiceWorker(){if(!("serviceWorker" in navigator))return;try{await navigator.serviceWorker.register("./sw.js")}catch(err){console.warn("Service Worker Fehler:",err)}}
+
+newBtn.addEventListener("click",createRun);
+duplicateBtn.addEventListener("click",duplicateRun);
+deleteBtn.addEventListener("click",deleteRun);
+addItemBtn.addEventListener("click",addItem);
+resetChecksBtn.addEventListener("click",resetChecks);
+printBtn.addEventListener("click",printCurrent);
+pdfBtn.addEventListener("click",saveCurrentAsPdf);
+
+exportBtn.addEventListener("click",()=>{
+  const payload={version:2,exportedAt:nowISO(),runs:state.runs},json=JSON.stringify(payload,null,2),blob=new Blob([json],{type:"application/json"}),isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  if(isIOS){
+    const reader=new FileReader();
+    reader.onload=()=>{const w=window.open(reader.result,"_blank");if(!w)alert(t("exportFailedIOS"))};
+    reader.readAsDataURL(blob);
+    return
+  }
+  const url=URL.createObjectURL(blob),a=document.createElement("a");
+  a.href=url;a.download=`einsatzprotokolle_${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)
+});
+
+installBtn.addEventListener("click",handleInstall);
+closeInstallHelpBtn.addEventListener("click",()=>installHelp.classList.add("hide"));
+installHelp.addEventListener("click",e=>{if(e.target===installHelp)installHelp.classList.add("hide")});
+
+importFile.addEventListener("change",async()=>{
+  const f=importFile.files?.[0];if(!f)return;
+  try{
+    const text=await f.text();const parsed=JSON.parse(text),data=parsed?.runs;
+    if(!Array.isArray(data))throw new Error(t("invalidFormat"));
+    const cleaned=data.map(r=>({id:r.id||uid(),customer:String(r.customer||""),technician:String(r.technician||""),date:String(r.date||""),site:String(r.site||""),reference:String(r.reference||""),summary:String(r.summary||""),notes:String(r.notes||""),items:Array.isArray(r.items)?r.items.map(it=>({id:it.id||uid(),text:String(it.text||""),hint:String(it.hint||""),done:!!it.done,itemNote:String(it.itemNote||"")})):[],signatureDataUrl:typeof r.signatureDataUrl==="string"?r.signatureDataUrl:"",createdAt:r.createdAt||nowISO(),updatedAt:r.updatedAt||nowISO()}));
+    const byId=new Map(state.runs.map(r=>[r.id,r]));
+    for(const r of cleaned)byId.set(r.id,r);
+    state.runs=Array.from(byId.values());
+    state.activeId=state.activeId&&byId.has(state.activeId)?state.activeId:state.runs[0]?.id??null;
+    saveState();renderAll();alert(t("importSuccess"))
+  }catch(err){alert(t("importFailed")+(err?.message||String(err)))}finally{importFile.value=""}
+});
+
+searchInput.addEventListener("input",renderLibrary);
+newItemText.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();addItem()}});
+langDeBtn.addEventListener("click",()=>{currentLang="de";localStorage.setItem(LANG_KEY,currentLang);applyTranslations();renderAll()});
+langEnBtn.addEventListener("click",()=>{currentLang="en";localStorage.setItem(LANG_KEY,currentLang);applyTranslations();renderAll()});
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredInstallPrompt=e});
+
+applyTranslations();
+drawSignatureFromDataUrl("");
+renderAll();
+registerServiceWorker();
+</script>
+</body>
+</html>
